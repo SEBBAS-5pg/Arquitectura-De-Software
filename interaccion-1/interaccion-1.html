@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Factory vs Singleton</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            font-size: 22px;
+            margin-top: 30px;
+        }
+
+        p,
+        li {
+            font-size: 16px;
+        }
+
+        ul {
+            margin-top: 5px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Factory vs Singleton en Sistemas Distribuidos</h2>
+
+    <h3>Importancia de Factory en Sistemas Distribuidos</h3>
+    <p>
+        En <strong>sistemas distribuidos grandes</strong>, <strong>Factory</strong> es más crítico que
+        <strong>Singleton</strong> para la escalabilidad.
+        Singleton crea <strong>cuellos de botella</strong> por su estado global único, lo cual falla en microservicios
+        (por ejemplo, <strong>Netflix evita Singleton</strong> debido a problemas de latencia y sincronización).
+    </p>
+    <p>
+        El patrón Factory <strong>encapsula la creación de objetos</strong>, permitiendo instancias dinámicas y
+        polimórficas
+        sin conocer detalles en tiempo de ejecución, algo ideal para entornos con <strong>miles de usuarios</strong>.
+    </p>
+
+    <h3>Ventajas del Patrón Factory</h3>
+    <p>
+        Factory previene el <em>“código espagueti”</em> al <strong>centralizar la lógica de creación</strong>, evitando
+        grandes estructuras condicionales (<em>switch-cases</em>) y respetando principios como
+        <strong>SRP</strong> y <strong>Open/Closed</strong>.
+    </p>
+    <p>
+        En un proyecto de e-commerce, se utilizó Factory para generar dinámicamente distintos medios de pago
+        (<strong>tarjeta</strong> / <strong>billetera</strong>), lo cual evitó dependencias rígidas y facilitó
+        pruebas y mockeos.
+    </p>
+
+    <h3>Riesgos del Patrón Singleton</h3>
+    <p>Los principales riesgos de Singleton incluyen:</p>
+    <ul>
+        <li><strong>Acoplamiento global</strong></li>
+        <li><strong>Dificultad en testing</strong> (no se puede mockear fácilmente)</li>
+        <li><strong>Problemas de concurrencia</strong> como race conditions</li>
+        <li>Violación de principios como <strong>DIP</strong> y <strong>SRP</strong></li>
+    </ul>
+    <p>
+        En una aplicación multihilo previa, Singleton causó <strong>deadlocks</strong>. Tras migrar a inyección de
+        dependencias (DI)
+        junto con Factory, el rendimiento mejoró en un <strong>30%</strong>.
+    </p>
+
+    <h3>Conclusión</h3>
+    <p>
+        <strong>¡Factory gana por flexibilidad!</strong> ¿Qué opinas tú? ¿Conoces ejemplos donde Singleton haya sido la
+        mejor opción?
+    </p>
+
+    <h3>Bibliografía</h3>
+    <ul>
+        <li>
+            <a href="https://leaders.tec.br/pdf/en/904266.pdf" target="_blank">The Singleton Pattern in Scalability
+                Contexts: Performance Evaluation and Maintenance Impacts of Systems</a>
+        </li>
+        <li>
+            <a href="https://7factor.io/news/the-factory-pattern-method-an-overview-on-scalability/" target="_blank">The
+                Factory Pattern Method: An Overview on Scalability</a>
+        </li>
+        <li>
+            <a href="https://habitualcs.io/the-software-factory-method-pattern-ultimate-guide/" target="_blank">The
+                Softw</a>
+        </li>
+        <li>
+            <a href="https://www.codingexplorations.com/blog/exploring-the-importance-and-benefits-of-the-factory-pattern-in-software-engineering"
+                target="_blank">Exploring the Importance and Benefits of the Factory Pattern in Software Engineering</a>
+        </li>
+        <li>
+            <a href="http://www.carloscaballero.io/understanding-design-patters-factory-method/"
+                target="_blank">Understanding Design Patterns: Factory Method</a>
+        </li>
+        <li>
+            <a href="https://dev.to/alishirani/stop-writing-spaghetti-code-an-illustrated-guide-to-the-design-patterns-that-will-make-you-a-4bh1"
+                target="_blank">Why You Should Avoid Spaghetti Code: An Illustrated Guide to Design Patterns</a>
+        </li>
+        <li>
+            <a href="https://coderanch.com/t/100579/engineering/singletons-bad-factory" target="_blank">If Singletons
+                Are So Bad, Why Do We Still Use Them?</a>
+        </li>
+        <li>
+            <a href="https://stackoverflow.com/questions/2094211/difference-between-singleton-and-factory-method-pattern"
+                target="_blank">Difference between Singleton and Factory Method Pattern</a>
+        </li>
+        <li>
+            <a href="https://www.youtube.com/watch?v=82eWXsLETxA" target="_blank">Why Spaghetti Code Slows Development
+                and How to Fix It</a>
+        </li>
+        <li>
+            <a href="https://www.reddit.com/r/cpp/comments/82r6im/why_should_i_avoid_singletons_i_need_them/" target="_blank">Why Should I Avoid Singletons? I Need Them!</a>
+        </li>
+        <li>
+            <a href="https://python.plainenglish.io/from-spaghetti-code-to-scalable-systems-10-principles-that-changed-my-development-mindset-3da711961805" target="_blank">From Spaghetti Code to Scalable Systems: 10 Principles That Changed My Development Mindset</a>
+        </li>
+        <li>
+            <a href="https://www.techtarget.com/searchsoftwarequality/tip/Fix-spaghetti-code-and-other-pasta-theory-antipatterns" target="_blank">Fix Spaghetti Code and Other Pasta Theory Antipatterns</a>
+        </li>
+        <li>
+            <a href="https://www.in-com.com/blog/modern-singleton-strategies-for-cloud-native-and-distributed-architectures/" target="_blank">Modern Singleton Strategies for Cloud-Native and Distributed Architectures</a>
+        </li>
+    </ul>
+
+    <h3>
+        <a href="" target="_blank">Enlace GitHub</a>
+    </h3>
+
+</body>
+
+</html>

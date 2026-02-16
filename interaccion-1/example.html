@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Factory vs Singleton – Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:#0f172a; --fg:#e5e7eb; --muted:#94a3b8;
+      --accent:#22d3ee; --card:#111827; --code:#0b1220; --ok:#10b981; --warn:#f59e0b;
+    }
+    body{font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--fg); line-height:1.6; margin:0; padding:2rem;}
+    h1,h2,h3{line-height:1.25; margin:0 0 .75rem 0}
+    h1{font-size:1.8rem; text-align:center; margin-bottom:1.2rem}
+    h2{font-size:1.25rem; margin-top:1.5rem}
+    h3{font-size:1.05rem; color:var(--accent)}
+    p{margin:.5rem 0}
+    .card{background:var(--card); border:1px solid #1f2937; border-radius:12px; padding:1rem 1.2rem; margin:1rem 0}
+    .tag{display:inline-block; font-size:.8rem; color:#032a2f; background:#99f6e4; border-radius:999px; padding:.15rem .55rem; margin-right:.35rem}
+    .note{border-left:4px solid var(--accent); padding-left:.8rem}
+    pre{background:var(--code); padding:1rem; border-radius:10px; overflow:auto; border:1px solid #1f2937}
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:.95rem}
+    ul{margin:.3rem 0 .8rem 1.2rem}
+    .ok{color:var(--ok)} .warn{color:var(--warn)}
+    footer{margin-top:2rem; font-size:.9rem; color:var(--muted); text-align:center}
+  </style>
+</head>
+<body>
+
+  <h1>Factory vs Singleton en Sistemas Distribuidos</h1>
+
+  <div class="card">
+    <span class="tag">Patrones</span>
+    <span class="tag">Escalabilidad</span>
+    <span class="tag">Microservicios</span>
+    <p class="note">
+      En <strong>sistemas distribuidos grandes</strong>, <strong>Factory</strong> suele ser más crítico para la <strong>escalabilidad</strong> 
+      que <strong>Singleton</strong>. Factory permite instancias dinámicas y polimórficas sin estado global; Singleton introduce 
+      cuellos de botella y problemas de concurrencia si es mutable.
+    </p>
+  </div>
+
+  <section class="card">
+    <h2 class="warn">1) Anti‑ejemplo: Singleton con estado global (riesgo en distribuido)</h2>
+    <p>Problemas típicos: <em>race conditions</em>, acoplamiento global, dificultad para testear y cuello de botella.</p>
+    <pre><code>// ⚠️ Singleton: una única instancia global compartida (anti‑patrón si hay estado mutable)
+const PaymentCounterSingleton = {
+  totalProcesados: 0, // ← estado global compartido (peligroso)
+  procesar(monto) {
+    // Imagina múltiples hilos/requests llamando esto al mismo tiempo:
+    this.totalProcesados = this.totalProcesados + 1; // ← race condition
+    print("Pago de " + monto + " | total: " + this.totalProcesados);
+  }
+};
+
+// En microservicios:
+// - Cada pod tendría SU propio contador (inconsistente).
+// - Si centralizas el estado, creas un cuello de botella.
+// - Testing es difícil: no puedes "resetear" fácilmente lo global.
+PaymentCounterSingleton.procesar(100);
+PaymentCounterSingleton.procesar(50);</code></pre>
+  </section>
+
+  <section class="card">
+    <h2 class="ok">2) Enfoque recomendado: Factory (instancias por necesidad, sin globales)</h2>
+    <p>Factory encapsula la creación, respeta <strong>SRP</strong>/<strong>Open‑Closed</strong> y facilita polimorfismo en runtime.</p>
+    <pre><code>// 1) Contrato común (interfaz mental)
+interface ProcesadorPago {
+  pagar(monto): Recibo
+}
+
+// 2) Implementaciones concretas, sin estado global
+class PagoTarjeta implements ProcesadorPago {
+  pagar(monto) { return Recibo("tarjeta", monto) }
+}
+class PagoBilletera implements ProcesadorPago {
+  pagar(monto) { return Recibo("billetera", monto) }
+}
+
+// 3) Factory: decide qué crear SIN que el cliente conozca clases concretas
+class ProcesadorPagoFactory {
+  crear(tipo) {
+    if (tipo == "tarjeta")   return new PagoTarjeta()
+    if (tipo == "billetera") return new PagoBilletera()
+    throw Error("Tipo no soportado: " + tipo)
+  }
+}
+
+// 4) Servicio de dominio (cliente) — depende de la interfaz y la factory
+class CheckoutService {
+  constructor(factory) { this.factory = factory }
+  cobrar(tipo, monto) {
+    const proc = this.factory.crear(tipo) // nueva instancia si hace falta
+    return proc.pagar(monto)
+  }
+}
+
+// Uso (cada request puede crear su instancia, evitando estado compartido)
+const checkout = new CheckoutService(new ProcesadorPagoFactory())
+checkout.cobrar("tarjeta", 100)
+checkout.cobrar("billetera", 50)</code></pre>
+  </section>
+
+  <section class="card">
+    <h2>3) Extender sin romper (OCP): agregar <code>PagoCripto</code></h2>
+    <p>El cliente no cambia; solo se extiende la Factory.</p>
+    <pre><code>class PagoCripto implements ProcesadorPago {
+  pagar(monto) { return Recibo("cripto", monto) }
+}
+
+class ProcesadorPagoFactory {
+  crear(tipo) {
+    if (tipo == "tarjeta")   return new PagoTarjeta()
+    if (tipo == "billetera") return new PagoBilletera()
+    if (tipo == "cripto")    return new PagoCripto()   // ← extensión mínima
+    throw Error("Tipo no soportado: " + tipo)
+  }
+}</code></pre>
+  </section>
+
+  <section class="card">
+    <h2>4) Test &amp; mockeo fácil con Factory</h2>
+    <p>Cambia la Factory por un doble de prueba para aislar el servicio.</p>
+    <pre><code>// Doble de prueba (mock/fake)
+class FakeFactory {
+  crear(tipo) {
+    return {
+      pagar: (monto) => Recibo("fake-" + tipo, monto) // comportamiento controlado
+    }
+  }
+}
+
+const svc = new CheckoutService(new FakeFactory())
+const r = svc.cobrar("tarjeta", 123.45)
+assert(r.metodo == "fake-tarjeta")
+assert(r.monto  == 123.45)</code></pre>
+  </section>
+
+  <section class="card">
+    <h2>5) Si alguna vez usas Singleton… (versión segura)</h2>
+    <p>Que sea <strong>inmutable</strong>, <strong>thread‑safe</strong> y <strong>detrás de una interfaz</strong> inyectable.</p>
+    <pre><code>// Config inmutable (mejor inyectarla que leerla como global)
+const Config = Object.freeze({
+  currency: "COP",
+  region: "CO"
+});
+
+class CheckoutService {
+  constructor(factory, config) {
+    this.factory = factory
+    this.config  = config // inyectado → testeable
+  }
+}</code></pre>
+  </section>
+
+  <footer>
+    Snippet educativo — enfoque conceptual (no ejecutable). Ajusta nombres/idioma a tu stack.
+  </footer>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<h2 style="text-align: center; font-size: 29.5px; font-weight: 700; letter-spacing: 0px;">
+    Opinión Personal sobre el Patrón Observer
+</h2>
+<p style="font-size: 14.8px;"><span style="font-size: 14.8px; letter-spacing: 0px;">El patrón </span><strong style="font-size: 14.8px; letter-spacing: 0px;">Observer</strong><span style="font-size: 14.8px; letter-spacing: 0px;"> es fundamental para evitar dependencias rígidas y reducir el código espagueti en aplicaciones de gran escala.
+        Su mayor ventaja es el </span><em style="font-size: 14.8px; letter-spacing: 0px;">desacoplamiento</em><span style="font-size: 14.8px; letter-spacing: 0px;">: permite que múltiples observadores reaccionen a cambios sin que el sujeto necesite referencias directas a ellos, favoreciendo arquitecturas modulares y mantenibles.</span><br></p>
+
+<h2 style="font-size: 24.6px;">Comparación con Otros Patrones de Comportamiento</h2>
+
+<h3 style="font-size: 22.1px;">Observer</h3>
+<ul>
+    <li style="font-size: 14.8px;"><strong style="font-size: 14.8px;">Fortalezas:</strong> Notificación a múltiples observadores sin acoplamiento; suscripciones dinámicas.</li>
+    <li style="font-size: 14.8px;"><strong style="font-size: 14.8px;">Limitaciones:</strong> Riesgo de "notification storms".</li>
+    <li style="font-size: 14.8px;"><strong style="font-size: 14.8px;">Uso típico:</strong> UI reactiva, sistemas en tiempo real, MVC.</li>
+</ul>
+
+<h3 style="font-size: 22.1px;">Strategy</h3>
+<ul>
+    <li style="font-size: 14.8px;"><strong style="font-size: 14.8px;">Fortalezas:</strong> Permite cambiar algoritmos durante la ejecución.</li>
+    <li style="font-size: 14.8px;"><strong style="font-size: 14.8px;">Limitaciones:</strong> No diseñado para difusión de eventos.</li>
+    <li style="font-size: 14.8px;"><strong style="font-size: 14.8px;">Uso típico:</strong> Algoritmos intercambiables.</li>
+</ul>
+
+<h3 style="font-size: 22.1px;">Command</h3>
+<ul>
+    <li style="font-size: 14.8px;"><strong style="font-size: 14.8px;">Fortalezas:</strong> Encapsula acciones y soporta undo/redo.</li>
+    <li style="font-size: 14.8px;"><strong style="font-size: 14.8px;">Limitaciones:</strong> No maneja estado compartido.</li>
+    <li style="font-size: 14.8px;"><strong style="font-size: 14.8px;">Uso típico:</strong> Menús, colas de acciones.</li>
+</ul>
+
+<h3 style="font-size: 22.1px;">State</h3>
+<ul>
+    <li style="font-size: 14.8px;"><strong style="font-size: 14.8px;">Fortalezas:</strong> Cambia comportamiento según el estado interno.</li>
+    <li style="font-size: 14.8px;"><strong style="font-size: 14.8px;">Limitaciones:</strong> No notifica a otros componentes.</li>
+    <li style="font-size: 14.8px;"><strong style="font-size: 14.8px;">Uso típico:</strong> Máquinas de estado.</li>
+</ul>
+
+<h2 style="font-size: 24.6px;">Ejemplo Hipotético: App de Monitoreo de Inventario</h2>
+
+<p style="font-size: 14.8px;">
+    En una app de e-commerce, un servicio de inventario podría notificar cambios de stock a la UI, sistemas de alertas y microservicios.
+</p>
+<div style="text-align: center; font-size: 14.8px;">
+    <img src="https://virtual.corhuila.edu.co/uh/draftfile.php?file=%2F4507%2Fuser%2Fdraft%2F983922310%2Fimage.png" alt="" class="img-fluid" style="width: 50%; max-width: 450px; height: auto; margin: 0 auto; display: block;">
+</div>
+
+
+<h3 style="font-size: 22.1px;">Sin Observer:</h3>
+<ul>
+    <li style="font-size: 14.8px;">Dependencias directas entre módulos.</li>
+    <li style="font-size: 14.8px;">Consultas constantes e ineficientes.</li>
+    <li style="font-size: 14.8px;">Aumenta el riesgo de código espagueti.</li>
+</ul>
+
+<h3 style="font-size: 22.1px;">Con Observer:</h3>
+<ul>
+    <li style="font-size: 14.8px;">El servicio solo emite eventos.</li>
+    <li style="font-size: 14.8px;">Observadores se suscriben o se retiran dinámicamente.</li>
+    <li style="font-size: 14.8px;">Se escala fácilmente sin modificar el núcleo.</li>
+</ul>
+
+<p style="font-size: 14.8px;">
+    El patrón Observer reduce dependencias, mejora la testabilidad y mantiene el código limpio separando la lógica de notificación del resto del sistema.
+</p>
+
+<h3>Bibliografía</h3>
+<ul>
+    <li>
+        <a href="https://www.linkedin.com/pulse/observer-pattern-decoupling-dynamic-interactivity-software-mishra-ddhof" target="_blank">The observer pattern: Decoupling Dynamic Interactivity in Software Development</a>
+    </li>
+    <li>
+        <a href="https://curatepartners.com/tech-skills-tools-platforms/observer-pattern-simplifying-event-handling-and-system-decoupling-for-modern-software/" target="_blank">Observer Pattern: Event Handling and System Decoupling</a>
+    </li>
+    <li>
+        <a href="https://owasp.id/2024/10/04/behavioral-design-patterns-state-strategy-observer-and-command-patterns-explained/" target="_blank">Behavioral Design Patterns: State, Strategy, Observer and Command Patterns Explained</a>
+    </li>
+    <li>
+        <a href="https://refactoring.guru/es/design-patterns/observer" target="_blank">Observer</a>
+    </li>
+    <li>
+        <a href="https://learn.unity.com/tutorial/create-modular-and-maintainable-code-with-the-observer-pattern" target="_blank">Create Modular and Maintainable Code with the Observer Pattern</a>
+    </li>
+    <li>
+        <a href="https://finestcoder.com/modern-design-patterns-for-web-and-mobile-development/" target="_blank">Modern Design Patterns for Web and Mobile Development</a>
+    </li>
+    <li>
+        <a href="https://www.reddit.com/r/gamedev/comments/1nd3isz/why_observer_pattern_is_so_strongly_pushed_into/" target="_blank">Why Observer Pattern is so strongly pushed into Game Development</a>
+    </li>
+    <li>
+        <a href="https://refactoring.guru/design-patterns" target="_blank">Design Patterns</a>
+    </li>
+    <li>
+        <a href="https://itnext.io/mastering-the-observer-design-pattern-with-practical-examples-d78d585147e5?gi=c5f3a24f04a7" target="_blank">Mastering the Observer Design Pattern with Practical Examples</a>
+    </li>
+    <li>
+        <a href="https://www.netmentor.es/entrada/summary-design-patterns" target="_blank">Patrones de Diseño Esenciales para Código Limpio y Escalable</a>
+    </li>
+    <li>
+        <a href="https://nextdart.com/blog/patrones-de-diseno-en-arquitectura-de-software-principios-para-un-codigo-solido-y-escalable/" target="_blank">Patrones de Diseño en Arquitectura de Software: Principios para un Código Sólido y Escalable</a>
+    </li>
+    <li>
+        <a href="https://www.itdo.com/blog/arquitectura-y-escenarios-decoupled/" target="_blank">Arquitectura y Escenarios Decoupled</a>
+    </li>
+    <li>
+        <a href="https://www.javier8a.com/itc/bd1/articulo.pdf" target="_blank">Design Patterns Elements of Reusable Object-Oriented Software</a>
+    </li>
+</ul>

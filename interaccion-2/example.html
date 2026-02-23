@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Demo Patrón Observer - Inventario</title>
+  <style>
+    :root{
+      --bg:#0f172a;       /* slate-900 */
+      --bg-soft:#111827;  /* gray-900 */
+      --card:#111827;
+      --text:#e5e7eb;     /* gray-200 */
+      --muted:#9ca3af;    /* gray-400 */
+      --accent:#22d3ee;   /* cyan-400 */
+      --ok:#34d399;       /* emerald-400 */
+      --warn:#fbbf24;     /* amber-400 */
+      --danger:#f87171;   /* red-400 */
+      --border:#1f2937;   /* gray-800 */
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Arial;
+      background: radial-gradient(1200px 600px at 10% -10%, #0b1223 20%, var(--bg)) no-repeat,
+                  radial-gradient(1200px 600px at 110% 10%, #0b1223 20%, var(--bg)) no-repeat,
+                  var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    header{
+      padding:28px 16px 8px; text-align:center;
+    }
+    h1{font-size:28px; margin:0 0 6px; letter-spacing:.2px}
+    p.lead{margin:0 auto 14px; max-width:800px; color:var(--muted)}
+    .container{max-width:1100px; margin:0 auto; padding:16px}
+    .grid{
+      display:grid; gap:16px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .card{
+      background:linear-gradient(180deg, #0f172a 0%, #0b1223 100%);
+      border:1px solid var(--border);
+      border-radius:14px; padding:16px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.02) inset, 0 20px 40px rgba(0,0,0,.35);
+    }
+    .subject   { grid-column: span 6; }
+    .observers { grid-column: span 6; }
+    @media (max-width: 900px){
+      .subject,.observers{ grid-column: 1 / -1; }
+    }
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .btn{
+      appearance:none; border:1px solid var(--border); color:var(--text);
+      background:#0b1326; padding:10px 14px; border-radius:10px;
+      cursor:pointer; transition:.15s transform, .15s background;
+    }
+    .btn:hover{ transform: translateY(-1px); background:#0e1831; }
+    .btn.ok{ border-color:rgba(52,211,153,.2); box-shadow: inset 0 0 0 1px rgba(52,211,153,.15); }
+    .btn.warn{ border-color:rgba(251,191,36,.25); box-shadow: inset 0 0 0 1px rgba(251,191,36,.15); }
+    .btn.danger{ border-color:rgba(248,113,113,.25); box-shadow: inset 0 0 0 1px rgba(248,113,113,.15); }
+    .tag{
+      display:inline-flex; gap:6px; align-items:center;
+      padding:4px 8px; border-radius:999px; font-size:12px;
+      border:1px solid var(--border); color:var(--muted);
+    }
+    .tag .dot{width:8px; height:8px; border-radius:999px; background:var(--accent)}
+    .list{display:grid; gap:10px}
+    .observer-card{
+      border:1px dashed var(--border);
+      padding:12px; border-radius:12px; background:#0b1326;
+    }
+    .observer-card header{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 0 8px; border-bottom:1px dashed var(--border);
+      margin-bottom:10px;
+    }
+    .kpi{
+      display:grid; grid-template-columns: repeat(3,1fr); gap:10px; margin-top:10px;
+    }
+    .metric{
+      background:#0b1326; border:1px solid var(--border);
+      padding:10px; border-radius:10px; text-align:center
+    }
+    .metric .value{font-size:20px; font-weight:700}
+    .log{
+      height:180px; overflow:auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background:#0b1326; border:1px solid var(--border);
+      border-radius:10px; padding:10px; color:#cbd5e1;
+    }
+    .hint{color:var(--muted); font-size:13px}
+    /* Imagen centrada y tamaño mediano */
+    .figure{
+      display:block; margin:16px auto; max-width:560px; width:60%;
+      border-radius:12px; border:1px solid var(--border);
+      background:#0b1326; padding:8px;
+    }
+    .figure img{ display:block; margin:0 auto; max-width:100%; height:auto; border-radius:8px; }
+    .figure figcaption{ text-align:center; font-size:13px; color:var(--muted); margin-top:6px;}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Patrón Observer aplicado a un Servicio de Inventario</h1>
+  <p class="lead">
+    El <strong>Subject</strong> (InventarioService) emite cambios de stock; los <strong>Observers</strong> (UI, Alertas, Recomendaciones) se suscriben y reaccionan.
+    Puedes disparar eventos, suscribir/desuscribir observadores y ver cómo se propagan las notificaciones con control anti-<em>notification storm</em>.
+  </p>
+</header>
+
+<div class="container">
+  <div class="grid">
+    <!-- SUBJECT -->
+    <section class="card subject">
+      <div class="row" style="justify-content:space-between">
+        <h2 style="margin:0">InventarioService (Subject)</h2>
+        <span class="tag"><span class="dot"></span>en vivo</span>
+      </div>
+
+      <div class="kpi">
+        <div class="metric">
+          <div class="label">Producto</div>
+          <div class="value" id="m-producto">SKU-ABC-001</div>
+        </div>
+        <div class="metric">
+          <div class="label">Stock actual</div>
+          <div class="value" id="m-stock">20</div>
+        </div>
+        <div class="metric">
+          <div class="label">Último cambio</div>
+          <div class="value" id="m-ultimo">–</div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <button class="btn ok" id="btn-plus1">+1</button>
+        <button class="btn ok" id="btn-plus5">+5</button>
+        <button class="btn danger" id="btn-minus1">-1</button>
+        <button class="btn danger" id="btn-minus5">-5</button>
+        <button class="btn warn" id="btn-burst">Burst x20 (simula storm)</button>
+        <span class="hint">Las ráfagas se agrupan (debounce/batch 250 ms)</span>
+      </div>
+    </section>
+
+    <!-- OBSERVERS -->
+    <section class="card observers">
+      <h2 style="margin-top:0">Observadores</h2>
+
+      <div class="list">
+
+        <!-- Dashboard UI -->
+        <article class="observer-card" data-observer="ui">
+          <header>
+            <strong>Dashboard UI</strong>
+            <div class="row">
+              <button class="btn" data-action="toggle" data-target="ui">Suscribir</button>
+            </div>
+          </header>
+          <div class="hint">Actualiza paneles visuales cuando cambia el stock.</div>
+          <div class="row" style="margin-top:8px; gap:14px">
+            <div class="metric" style="flex:1">
+              <div class="label">Stock en UI</div>
+              <div class="value" id="ui-stock">—</div>
+            </div>
+            <div class="metric" style="flex:1">
+              <div class="label">Actualizaciones recibidas</div>
+              <div class="value" id="ui-count">0</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Email Alerts -->
+        <article class="observer-card" data-observer="email">
+          <header>
+            <strong>Alertas por Email</strong>
+            <div class="row">
+              <button class="btn" data-action="toggle" data-target="email">Suscribir</button>
+            </div>
+          </header>
+          <div class="hint">Envía alerta si el stock cae por debajo de 10 (simulado).</div>
+          <div class="row" style="margin-top:8px; gap:14px">
+            <div class="metric" style="flex:1">
+              <div class="label">Emails simulados</div>
+              <div class="value" id="email-count">0</div>
+            </div>
+            <div class="metric" style="flex:1">
+              <div class="label">Último estado</div>
+              <div class="value" id="email-status">—</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Recommendations -->
+        <article class="observer-card" data-observer="rec">
+          <header>
+            <strong>Recomendaciones</strong>
+            <div class="row">
+              <button class="btn" data-action="toggle" data-target="rec">Suscribir</button>
+            </div>
+          </header>
+          <div class="hint">Ajusta recomendaciones: si sube stock → promover producto; si baja → sugerir sustitutos.</div>
+          <div class="row" style="margin-top:8px; gap:14px">
+            <div class="metric" style="flex:1">
+              <div class="label">Acciones tomadas</div>
+              <div class="value" id="rec-count">0</div>
+            </div>
+            <div class="metric" style="flex:1">
+              <div class="label">Última acción</div>
+              <div class="value" id="rec-last">—</div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- EVENT LOG -->
+    <section class="card" style="grid-column: 1 / -1">
+      <div class="row" style="justify-content:space-between">
+        <h2 style="margin:0">Log de eventos</h2>
+        <button class="btn" id="btn-clear">Limpiar</button>
+      </div>
+      <div id="log" class="log" aria-live="polite"></div>
+      <p class="hint">Tip: abre la consola del navegador para ver también los mensajes de cada observador.</p>
+    </section>
+
+  </div>
+</div>
+
+<script>
+/** ===============================
+ *  Implementación simple de Observer
+ *  =============================== */
+class Subject {
+  constructor() { this.observers = new Set(); }
+  subscribe(fn)   { this.observers.add(fn); return () => this.unsubscribe(fn); }
+  unsubscribe(fn) { this.observers.delete(fn); }
+  notify(data)    { this.observers.forEach(fn => fn(data)); }
+  count()         { return this.observers.size; }
+}
+
+/** Debounce + batch: agrupa notificaciones muy seguidas. */
+function makeBatchedNotifier(subject, delay = 250) {
+  let timer = null;
+  let lastPayload = null;
+  return (payload) => {
+    lastPayload = payload;
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      subject.notify(lastPayload);
+      timer = null; lastPayload = null;
+    }, delay);
+  };
+}
+
+/** InventarioService (Subject) */
+class InventarioService {
+  constructor({ sku, stockInicial = 20 }) {
+    this.sku = sku;
+    this._stock = stockInicial;
+    this.subject = new Subject();
+    // Reemplaza notify directo por uno con batching
+    this.safeNotify = makeBatchedNotifier(this.subject, 250);
+  }
+  get stock(){ return this._stock; }
+
+  setStock(nuevo, meta = {}) {
+    const anterior = this._stock;
+    this._stock = Math.max(0, nuevo);
+    const payload = {
+      type: 'STOCK_CHANGED',
+      sku: this.sku,
+      before: anterior,
+      after: this._stock,
+      diff: this._stock - anterior,
+      at: new Date().toISOString(),
+      meta
+    };
+    this.safeNotify(payload); // protegemos contra storms
+  }
+
+  inc(n=1){ this.setStock(this._stock + n, {op:'inc', n}); }
+  dec(n=1){ this.setStock(this._stock - n, {op:'dec', n}); }
+
+  subscribe(fn){ return this.subject.subscribe(fn); }
+  unsubscribe(fn){ this.subject.unsubscribe(fn); }
+}
+
+/** Utilidades UI */
+const $ = (sel) => document.querySelector(sel);
+const logEl = $('#log');
+function log(msg){
+  const time = new Date().toLocaleTimeString();
+  const line = `[${time}] ${msg}\n`;
+  logEl.textContent += line;
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+/** Instancia del servicio */
+const inv = new InventarioService({ sku: 'SKU-ABC-001', stockInicial: 20 });
+
+/** Observadores (funciones) */
+let uiCount=0, emailCount=0, recCount=0;
+
+function dashboardUIObserver(evt){
+  uiCount++;
+  $('#ui-count').textContent = uiCount;
+  $('#ui-stock').textContent = evt.after;
+  console.info('UI Observer → stock:', evt.after);
+  log(`UI actualiza tarjeta: stock = ${evt.after}`);
+}
+
+function emailAlertObserver(evt){
+  // Envía alerta si stock < 10 (simulado)
+  if (evt.after < 10) {
+    emailCount++;
+    $('#email-count').textContent = emailCount;
+    $('#email-status').textContent = 'ALERTA: stock bajo';
+    console.warn('EMAIL Observer → ALERTA: stock bajo', evt.after);
+    log(`Email alerta: stock bajo (${evt.after})`);
+  } else {
+    $('#email-status').textContent = 'OK';
+  }
+}
+
+function recommendationObserver(evt){
+  recCount++;
+  $('#rec-count').textContent = recCount;
+  const action = (evt.diff >= 0) ? 'Promover producto' : 'Sugerir sustitutos';
+  $('#rec-last').textContent = action;
+  console.log('REC Observer →', action, 'stock:', evt.after);
+  log(`Recomendaciones: ${action} (stock=${evt.after})`);
+}
+
+/** Gestión de suscripciones (toggle) */
+const registry = {
+  ui:   { fn: dashboardUIObserver,    unsub: null, button: null },
+  email:{ fn: emailAlertObserver,     unsub: null, button: null },
+  rec:  { fn: recommendationObserver, unsub: null, button: null },
+};
+
+function toggleObserver(key){
+  const entry = registry[key];
+  const btn = entry.button;
+  const isOn = !!entry.unsub;
+  if (isOn){
+    entry.unsub(); entry.unsub = null;
+    btn.textContent = 'Suscribir';
+    log(`🧩 ${key} desuscrito`);
+  } else {
+    entry.unsub = inv.subscribe(entry.fn);
+    btn.textContent = 'Desuscribir';
+    log(`🧩 ${key} suscrito`);
+  }
+}
+
+/** Enlazar UI */
+window.addEventListener('DOMContentLoaded', () => {
+  // KPIs iniciales
+  $('#m-producto').textContent = inv.sku;
+  $('#m-stock').textContent = inv.stock;
+
+  // Botones de cantidad
+  $('#btn-plus1').addEventListener('click', () => inv.inc(1));
+  $('#btn-plus5').addEventListener('click', () => inv.inc(5));
+  $('#btn-minus1').addEventListener('click', () => inv.dec(1));
+  $('#btn-minus5').addEventListener('click', () => inv.dec(5));
+
+  // Burst: 20 cambios rápidos para simular "storm"
+  $('#btn-burst').addEventListener('click', () => {
+    for (let i=0;i<20;i++){
+      // alterna +1 y -1 para crear ruido
+      if (i % 2 === 0) inv.inc(1); else inv.dec(1);
+    }
+    log('⚡ Ráfaga de 20 cambios enviada (debounced)');
+  });
+
+  // Botones de suscripción
+  document.querySelectorAll('[data-action="toggle"]').forEach(btn => {
+    const key = btn.getAttribute('data-target');
+    registry[key].button = btn;
+    btn.addEventListener('click', () => toggleObserver(key));
+  });
+
+  // Log
+  $('#btn-clear').addEventListener('click', () => logEl.textContent = '');
+
+  // Sugerencia: iniciar con la UI suscrita
+  toggleObserver('ui');
+});
+</script>
+
+</body>
+</html>

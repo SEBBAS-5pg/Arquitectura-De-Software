@@ -1,0 +1,70 @@
+<h2 style="text-align:center; font-size:26px; font-weight:bold;">
+    ¿Por qué Decorator es más crítico que Singleton para la escalabilidad?
+</h2>
+
+<h3 style="font-size:22px; font-weight:bold;">1. Tesis</h3>
+<p style="font-size:15px; line-height:22px;">
+    <strong style="font-size: 15px;">Decorator</strong> resulta más crítico que <strong style="font-size: 15px;">Singleton</strong> para escalar sistemas grandes.
+    Mientras <em style="font-size: 15px;">Singleton</em> centraliza una instancia y suele introducir <strong style="font-size: 15px;">estado global</strong>
+    (difícil de testear, paralelizar y distribuir), <em style="font-size: 15px;">Decorator</em> permite
+    <strong style="font-size: 15px;">añadir responsabilidades dinámicamente sin modificar la clase base</strong>, respetando
+    <em style="font-size: 15px;">Open/Closed Principle</em>. Así, los comportamientos se componen y evolucionan <em style="font-size: 15px;">en tiempo de ejecución</em>
+    sin reescrituras masivas ni dependencias rígidas.
+</p>
+
+<h3 style="font-size:22px; font-weight:bold;">2. Decorator vs. Singleton (en términos de escalabilidad)</h3>
+<ul style="font-size:15px;">
+    <li style="font-size: 15px;"><strong style="font-size: 15px;">Decorator (estructural):</strong> extiende funcionalidad por <em style="font-size: 15px;">composición</em> apilando decoradores
+        transparentes. Soporta múltiples extensiones simultáneas (p. ej., autenticación, logging, rate limiting)
+        sin tocar la clase base, minimizando el riesgo de “subclases explosivas”.</li>
+    <li style="font-size: 15px;"><strong style="font-size: 15px;">Singleton (creacional):</strong> asegura una única instancia y punto de acceso global. Útil en
+        configuraciones o pools, pero puede <strong style="font-size: 15px;">forzar acoplamientos globales</strong> y mutaciones compartidas,
+        lo que complica pruebas unitarias, concurrencia y despliegues distribuidos.</li>
+</ul>
+
+<h3 style="font-size:22px; font-weight:bold;">3. Prevención del “código espagueti”</h3>
+<p style="font-size:15px;">
+    Decorator evita el espagueti al <strong style="font-size: 15px;">eliminar condicionales monolíticos</strong> y ramas de
+    <code>if/else</code> para cada feature. Cada responsabilidad vive en su <em style="font-size: 15px;">decorador</em> independiente:
+    <span style="white-space: nowrap; font-size: 15px;">Base → AuthDecorator → LoggingDecorator → RateLimitDecorator</span>.
+    Cada capa es <strong style="font-size: 15px;">reusable</strong>, <strong style="font-size: 15px;">testeable</strong> y <strong style="font-size: 15px;">conmutable</strong>.
+    Ejemplo clásico: en lugar de llenar una clase <em style="font-size: 15px;">Coffee</em> con <code>if</code> para leche/azúcar,
+    se envuelve dinámicamente: <em style="font-size: 15px;">Espresso → MilkDecorator → SugarDecorator</em>.
+</p>
+
+<h3 style="font-size:22px; font-weight:bold;">4. Caso práctico: API Gateway de microservicios</h3>
+<p style="font-size:15px;">
+    En un gateway (p. ej., estilo Zuul), un <code>RequestHandler</code> base se decora con:
+    <em style="font-size: 15px;">AuthDecorator</em> (seguridad), <em style="font-size: 15px;">LoggingDecorator</em> (observabilidad),
+    <em style="font-size: 15px;">RateLimitDecorator</em> (protección), y, si se requiere, <em style="font-size: 15px;">MetricsDecorator</em>.
+</p>
+<p style="font-size:15px;">
+    <strong style="font-size: 15px;">Sin Decorator:</strong> el handler crece con condicionales por feature y supera las 1000 líneas. <br>
+    <strong style="font-size: 15px;">Con Decorator:</strong> cada comportamiento se añade en capas. Para incorporar métricas,
+    se agrega <em style="font-size: 15px;">MetricsDecorator</em> sin tocar el resto. Esto <strong style="font-size: 15px;">escala</strong> en entornos con 100+ servicios
+    y evita que un <em style="font-size: 15px;">Singleton</em> de logging colapse por estado compartido.
+</p>
+
+<h3 style="font-size:22px; font-weight:bold;">5. Conclusión</h3>
+<p style="font-size:15px;">
+    Para aplicaciones con <strong style="font-size: 15px;">features opcionales y crecimiento continuo</strong>, Decorator prioriza
+    <strong style="font-size: 15px;">extensibilidad limpia</strong> y control de complejidad arquitectónica.
+    Singleton cumple un rol acotado (una sola instancia), pero no resuelve la evolución de comportamientos y
+    puede introducir cuellos de botella globales. Por eso, <strong style="font-size: 15px;">Decorator es más crítico para la escalabilidad</strong>.
+</p>
+
+<h3 style="font-size:22px; font-weight:bold;">Bibliografía</h3>
+<ul style="font-size:15px;">
+    <!-- Enlaces proporcionados (relacionados con patrones y contraste con creacionales/comportamentales) -->
+    <li style="font-size: 15px;"><a href="https://stackoverflow.com/questions/616796/what-is-the-difference-between-factory-and-strategy-patterns" target="_blank" style="font-size: 15px;">Stack Overflow — Diferencias entre Factory y Strategy</a></li>
+    <li style="font-size: 15px;"><a href="https://www.geeksforgeeks.org/system-design/strategy-pattern-set-1/" target="_blank" style="font-size: 15px;">GeeksforGeeks — Strategy Pattern</a></li>
+    <li style="font-size: 15px;"><a href="https://dev.to/syridit118/mastering-the-strategy-design-pattern-a-guide-for-developers-397l" target="_blank" style="font-size: 15px;">DEV — Mastering the Strategy Pattern</a></li>
+    <li style="font-size: 15px;"><a href="https://www.momentslog.com/development/web-backend/efficient-algorithm-selection-with-the-strategy-pattern-dynamic-adaptation-to-changing-conditions" target="_blank" style="font-size: 15px;">MomentsLog — Strategy para selección de algoritmos</a></li>
+    <li style="font-size: 15px;"><a href="https://algomaster.io/learn/lld/strategy" target="_blank" style="font-size: 15px;">AlgoMaster — Strategy LLD</a></li>
+    <li style="font-size: 15px;"><a href="https://www.netmentor.es/entrada/en/summary-design-patterns" target="_blank" style="font-size: 15px;">NetMentor — Resumen de patrones</a></li>
+    <li style="font-size: 15px;"><a href="https://www.ionos.com/es-us/digitalguide/paginas-web/desarrollo-web/strategy-pattern/" target="_blank" style="font-size: 15px;">IONOS — Strategy Pattern</a></li>
+
+    <!-- Referencias específicas recomendadas para Decorator/Singleton -->
+    <li style="font-size: 15px;"><a href="https://refactoring.guru/es/design-patterns/decorator" target="_blank" style="font-size: 15px;">Refactoring.Guru — Decorator</a></li>
+    <li style="font-size: 15px;"><a href="https://refactoring.guru/es/design-patterns/singleton" target="_blank" style="font-size: 15px;">Refactoring.Guru — Singleton</a></li>
+</ul>

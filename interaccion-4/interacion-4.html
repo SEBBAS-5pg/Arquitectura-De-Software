@@ -1,0 +1,81 @@
+<h2 style="text-align:center; font-size:26px; font-weight:bold;">
+    ¿Por qué Strategy supera a Factory para flexibilidad dinámica?
+</h2>
+
+<h3 style="font-size:22px; font-weight:bold;">1. Tesis</h3>
+<p style="font-size:15px; line-height:22px;">
+    El patrón <strong>Strategy</strong> resulta más crítico que <strong>Factory</strong> para garantizar 
+    <strong>escalabilidad con cambios de comportamiento en tiempo de ejecución</strong>. 
+    Strategy encapsula algoritmos como objetos intercambiables y permite seleccionar la variante 
+    <em>en runtime</em> sin condicionales masivos, evitando <em>código espagueti</em>. 
+    En contraste, <strong>Factory</strong> (creacional) <em>oculta la construcción</em> de objetos, 
+    pero no resuelve por sí mismo la <strong>variación dinámica del algoritmo</strong> después de instanciarlo.
+</p>
+
+<h3 style="font-size:22px; font-weight:bold;">2. Diferencia de categorías</h3>
+<ul style="font-size:15px;">
+    <li><strong>Strategy (comportamental):</strong> define una <em>familia de algoritmos</em>, encapsula cada uno y los hace intercambiables sin if-else interminables. El cliente depende de la <em>interfaz</em>, no de implementaciones concretas.</li>
+    <li><strong>Factory (creacional):</strong> centraliza la <em>creación de objetos</em> y promueve polimorfismo en la construcción, pero no cambia el comportamiento del objeto ya creado ni elimina ramas condicionales en ejecución.</li>
+</ul>
+
+<h3 style="font-size:22px; font-weight:bold;">3. Cómo Strategy previene el “código espagueti”</h3>
+<p style="font-size:15px;">
+    En lugar de tener un método con múltiples <code>if/else</code> o <code>switch</code> para decidir 
+    “qué algoritmo correr”, el contexto mantiene una <strong>referencia a la estrategia actual</strong> 
+    (por ejemplo, <em>Simple</em>, <em>Por Volumen</em>, <em>ML</em>) y delega la ejecución sin ramificaciones.
+    Agregar un algoritmo nuevo solo implica <strong>añadir una clase que implemente la interfaz</strong>, 
+    cumpliendo mejor el principio <em>Open/Closed</em> (abrir para extensión, cerrar para modificación).
+</p>
+
+<h3 style="font-size:22px; font-weight:bold;">4. Strategy vs. Factory (resumen práctico)</h3>
+<ul style="font-size:15px;">
+    <li><strong>Strategy</strong>: cambia algoritmos en runtime; extensible sin modificar el cliente. 
+        <em>Limitación:</em> requiere mantener una <strong>familia de estrategias</strong> bien diseñada.</li>
+    <li><strong>Factory</strong>: encapsula creación y favorece polimorfismo de instancias. 
+        <em>Limitación:</em> <strong>no</strong> maneja cambios de comportamiento post-creación.</li>
+</ul>
+
+<h3 style="font-size:22px; font-weight:bold;">5. ¿Cuándo priorizar Strategy?</h3>
+<p style="font-size:15px;">
+    Cuando existe <strong>cambio frecuente</strong> de reglas o algoritmos (precios, promociones, cálculo de tarifas, 
+    ruteo, scoring, compresión, serialización). En aplicaciones dinámicas cumple mejor con Open/Closed que basarse solo 
+    en Factory, porque evita tocar el contexto al introducir una nueva variante.
+</p>
+
+<h3 style="font-size:22px; font-weight:bold;">6. Proyecto de primera aplicación</h3>
+<p style="font-size:15px;">
+    <strong>E-commerce de gran escala (pagos):</strong> los algoritmos varían por método (tarjeta, PayPal, crypto) y por condiciones de negocio 
+    (promoción simple, antifraude avanzado, ML). El tráfico y la estrategia de conversión exigen <strong>cambiar o combinar</strong> 
+    algoritmos en tiempo de ejecución sin condicionales caóticos.
+</p>
+<ul style="font-size:15px;">
+    <li><strong>Por qué primero:</strong> la variabilidad de reglas es alta; Strategy permite <em>switch runtime</em> y pruebas aisladas por algoritmo.</li>
+    <li><strong>Beneficios:</strong> añadir pagos/algoritmos sin tocar el contexto; mejor testabilidad; crecimiento sin “ramas gigantes”.</li>
+</ul>
+
+<h3 style="font-size:22px; font-weight:bold;">7. Ejemplo conceptual mínimo</h3>
+<pre style="background:#0b1120; color:#e5e7eb; border:1px solid #222; padding:10px; border-radius:8px; overflow:auto; font-size:13px;">
+interface EstrategiaPago { procesar(pedido): Resultado; }
+class Tarjeta implements EstrategiaPago { /* ... */ }
+class PayPal implements EstrategiaPago { /* ... */ }
+class Crypto implements EstrategiaPago { /* ... */ }
+
+// Contexto no usa if/else: delega
+class Checkout {
+  constructor(estrategia) { this.estrategia = estrategia; }
+  setEstrategia(e) { this.estrategia = e; }  // runtime
+  pagar(pedido) { return this.estrategia.procesar(pedido); }
+}
+</pre>
+
+<h3 style="font-size:22px; font-weight:bold;">Bibliografía</h3>
+<ul style="font-size:15px;">
+    <li><a href="https://stackoverflow.com/questions/616796/what-is-the-difference-between-factory-and-strategy-patterns" target="_blank">Stack Overflow — Difference between Factory and Strategy</a></li>
+    <li><a href="https://www.geeksforgeeks.org/system-design/strategy-pattern-set-1/" target="_blank">GeeksforGeeks — Strategy Pattern (System Design)</a></li>
+    <li><a href="https://dev.to/syridit118/mastering-the-strategy-design-pattern-a-guide-for-developers-397l" target="_blank">DEV Community — Mastering the Strategy Pattern</a></li>
+    <li><a href="https://www.momentslog.com/development/web-backend/efficient-algorithm-selection-with-the-strategy-pattern-dynamic-adaptation-to-changing-conditions" target="_blank">MomentsLog — Efficient Algorithm Selection with Strategy</a></li>
+    <li><a href="https://nnikolay.gumroad.com/l/strategy-design-pattern" target="_blank">N. Nikolay — Strategy Design Pattern (guía)</a></li>
+    <li><a href="https://codingtechroom.com/question/strategy-pattern-examples" target="_blank">CodingTechRoom — Strategy Pattern Examples</a></li>
+    <li><a href="https://www.youtube.com/watch?v=B790lKKzJgU" target="_blank">YouTube — Strategy Pattern (video)</a></li>
+    <li><a href="https://styde.net/aplicacion-del-patron-strategy/" target="_blank">Styde — Aplicación del patrón Strategy</a></li>
+</ul>

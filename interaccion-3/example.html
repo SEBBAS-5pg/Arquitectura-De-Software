@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Patrón Adapter - Ejemplo Aplicado (REST ↔ SOAP)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ======================= CSS INTEGRADO ======================= -->
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --primary: #60a5fa;
+      --accent: #f59e0b;
+      --ok: #34d399;
+      --border: #1f2937;
+    }
+
+    body {
+      font-family: system-ui, Arial, sans-serif;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      padding: 0;
+    }
+
+    .header {
+      text-align: center;
+      padding: 25px 10px;
+    }
+    .header h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+    .subtitle {
+      margin: 5px 0 0;
+      color: var(--muted);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 15px;
+      display: grid;
+      gap: 16px;
+    }
+
+    @media (min-width: 900px) {
+      .container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+
+    /* FORM */
+    .row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 12px;
+    }
+
+    label {
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #0b1022;
+      color: var(--text);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .btn {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #1f2937;
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #374151;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: #000;
+      font-weight: bold;
+    }
+
+    .primary:hover {
+      background: #7cc0ff;
+    }
+
+    .result {
+      margin-top: 20px;
+    }
+
+    pre {
+      background: #0b1120;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      color: var(--ok);
+      overflow: auto;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 30px 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+  </style>
+  <!-- ==================== FIN CSS INTEGRADO ==================== -->
+</head>
+
+<body>
+  <header class="header">
+    <h1>Patrón Adapter</h1>
+    <p class="subtitle">Integración de Pagos REST/JSON con Gateway Legacy SOAP/XML</p>
+  </header>
+
+  <main class="container">
+
+    <!-- ====================== PANEL CLIENTE ======================= -->
+    <section class="panel">
+      <h2>Cliente Moderno (REST/JSON)</h2>
+
+      <form id="checkout-form" class="form">
+        <div class="row">
+          <label>Monto (COP)</label>
+          <input type="number" id="monto" value="120000" min="1" required />
+        </div>
+
+        <div class="row">
+          <label>Moneda</label>
+          <input type="text" id="moneda" value="COP" required />
+        </div>
+
+        <div class="row">
+          <label>Token de Tarjeta</label>
+          <input type="text" id="token" value="tok_abc123" required />
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn primary">Pagar (REST/JSON)</button>
+          <button type="button" id="btn-refund" class="btn">Reembolsar</button>
+        </div>
+      </form>
+
+      <div class="result">
+        <h3>Resultado</h3>
+        <pre id="output">{ }</pre>
+      </div>
+    </section>
+
+    <!-- ====================== PANEL DESCRIPCIÓN ======================= -->
+    <section class="panel">
+      <h2>Descripción</h2>
+      <p>
+        El <strong>cliente</strong> (esta página) trabaja con <code>PaymentsService</code> 
+        que usa <strong>JSON</strong>.  
+      </p>
+      <p>
+        El <strong>gateway legacy</strong> solo acepta <strong>SOAP/XML</strong>.
+      </p>
+      <p>
+        El <strong>Adapter</strong> traduce JSON ↔ XML y conecta ambos sistemas sin modificar el legado.
+      </p>
+
+      <details>
+        <summary>Arquitectura</summary>
+        <ul>
+          <li><code>legacyGatewaySOAP.js</code>: simula SOAP/XML.</li>
+          <li><code>paymentsAdapter.js</code>: adapta JSON→XML.</li>
+          <li><code>app.js</code>: cliente REST.</li>
+        </ul>
+      </details>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <small>Ejemplo didáctico — Patrón Adapter (JS puro, sin dependencias)</small>
+  </footer>
+
+  <!-- Scripts reales de tu ejemplo -->
+  <script src="legacyGatewaySOAP.js"></script>
+  <script src="paymentsAdapter.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

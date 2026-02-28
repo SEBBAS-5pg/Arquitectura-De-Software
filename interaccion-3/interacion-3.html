@@ -1,0 +1,86 @@
+<h2 style="text-align:center;font-size:26px;font-weight:bold;">
+    Importancia del Patrón Adapter para la Escalabilidad de Sistemas
+</h2>
+
+<h3 style="font-size:22px;font-weight:bold;">1. Rol del Patrón Adapter en la Escalabilidad</h3>
+
+<p style="font-size:15px;line-height:22px;">
+    En el contexto de los patrones de diseño, considero que uno de los
+    <strong style="font-size:15px;">patrones más críticos para garantizar la escalabilidad</strong>
+    en proyectos de gran escala es el patrón estructural
+    <strong style="font-size:15px;"><em style="font-size:15px;">Adapter</em></strong>. Este patrón permite
+    <strong style="font-size:15px;">integrar código legacy con sistemas modernos sin necesidad de refactorizaciones disruptivas</strong>,
+    lo cual es clave si se considera que alrededor del 70–80% del ciclo de vida del software corresponde a mantenimiento,
+    como menciona Sommerville.
+</p>
+
+<h3 style="font-size:22px;font-weight:bold;">2. Diferencia entre Patrones Estructurales y Comportamentales</h3>
+
+<p style="font-size:15px;">
+    A diferencia de un patrón <strong style="font-size:15px;">comportamental</strong>, que gestiona la comunicación entre objetos
+    (por ejemplo, <em style="font-size:15px;">Observer</em>), un patrón <strong style="font-size:15px;">estructural</strong> se enfoca en cómo se organizan y relacionan
+    las clases. En este sentido, Adapter
+    <strong style="font-size:15px;">traduce interfaces incompatibles</strong>, encapsulando el código heredado y aislando dependencias.
+</p>
+
+<p style="font-size:15px;">
+    Esta modularidad evita el temido <em style="font-size:15px;">código espagueti</em>, reduce deuda técnica y permite que los equipos
+    desarrollen sobre una interfaz moderna sin modificar directamente el sistema legacy.
+</p>
+
+<h3 style="font-size:22px;font-weight:bold;">3. Proceso de Implementación del Patrón Adapter</h3>
+
+<p style="font-size:15px;">El uso típico del Adapter sigue estos tres pasos esenciales:</p>
+
+<ol style="font-size:15px;">
+    <li style="font-size:15px;"><strong style="font-size:15px;">Identificar interfaces incompatibles</strong>, por ejemplo un sistema legacy basado en XML frente a uno moderno JSON.</li>
+    <li style="font-size:15px;"><strong style="font-size:15px;">Crear una clase Adapter</strong> que implemente la nueva interfaz requerida.</li>
+    <li style="font-size:15px;"><strong style="font-size:15px;">Delegar llamadas traducidas</strong> hacia el componente heredado, manteniendo el cliente desacoplado.</li>
+</ol>
+
+<h3 style="font-size:22px;font-weight:bold;">4. Comparación con Otros Patrones Estructurales</h3>
+
+<p style="font-size:15px;">
+    Patrones como <strong style="font-size:15px;">Facade</strong> simplifican la interacción con sistemas complejos,
+    pero Adapter se diferencia en que <strong style="font-size:15px;">no solo oculta complejidad: adapta</strong>.
+    Cuando existen múltiples variantes de un mismo sistema heredado,
+    el patrón <strong style="font-size:15px;">Bridge</strong> permite separar la abstracción de la implementación,
+    facilitando la evolución independiente.
+</p>
+
+<h3 style="font-size:22px;font-weight:bold;">5. Conclusión</h3>
+
+<p style="font-size:15px;">
+    Adapter es crucial para la escalabilidad porque evita reescrituras masivas, mantiene una arquitectura ordenada
+    y permite la coexistencia entre tecnología moderna y sistemas heredados.
+    Esto coincide con las recomendaciones de Gamma et al. (Gang of Four).
+</p>
+<h3 style="font-size:22px;font-weight:bold;">GitHub</h3>
+<a href="" target="_blank">
+  Ejemplo practico
+</a>
+
+<h3 style="font-size:22px;font-weight:bold;">Bibliografía</h3>
+
+<ul style="font-size:15px;">
+
+
+    <li style="font-size:15px;"><a href="https://www.javier8a.com/itc/bd1/articulo.pdf" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Gamma et al. — Design Patterns: Elements of Reusable Object-Oriented Software</a></li>
+    <li style="font-size:15px;"><a href="https://refactoring.guru/design-patterns" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Refactoring Guru — Design Patterns</a></li>
+    <li style="font-size:15px;"><a href="https://refactoring.guru/es/design-patterns/observer" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Observer — Refactoring Guru</a></li>
+    <li style="font-size:15px;"><a href="http://www.cs.unc.edu/~stotts/GOF/hires/disc4.htm" target="_blank" style="font-size:15px;" rel="noreferrer noopener">GoF Disc 4 — UNC</a></li>
+    <li style="font-size:15px;"><a href="https://people.csail.mit.edu/addy/pattern/disc4.htm" target="_blank" style="font-size:15px;" rel="noreferrer noopener">MIT — Design Patterns Disc 4</a></li>
+    <li style="font-size:15px;"><a href="https://www.netmentor.es/entrada/summary-design-patterns" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Patrones de Diseño Esenciales</a></li>
+    <li style="font-size:15px;"><a href="https://nextdart.com/blog/patrones-de-diseno-en-arquitectura-de-software-principios-para-un-codigo-solido-y-escalable/" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Código Sólido y Escalable</a></li>
+    <li style="font-size:15px;"><a href="https://www.itdo.com/blog/arquitectura-y-escenarios-decoupled/" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Escenarios Decoupled</a></li>
+
+
+    <li style="font-size:15px;"><a href="https://www.momentslog.com/development/web-backend/handling-legacy-code-integration-with-the-adapter-pattern-bridging-modern-and-old-systems" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Legacy Integration con Adapter Pattern</a></li>
+    <li style="font-size:15px;"><a href="https://www.geeksforgeeks.org/system-design/adapter-pattern/" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Adapter Pattern — GeeksForGeeks</a></li>
+    <li style="font-size:15px;"><a href="https://www.momentslog.com/development/design-pattern/adapting-legacy-code-with-the-adapter-pattern" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Adapting Legacy Code</a></li>
+    <li style="font-size:15px;"><a href="https://ylioo.com/programming/structual_patterns/" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Structural Patterns General</a></li>
+    <li style="font-size:15px;"><a href="https://www.momentslog.com/development/design-pattern/adapter-pattern-in-legacy-code-refactoring-bridging-old-and-new-systems" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Adapter Pattern in Legacy Refactoring</a></li>
+    <li style="font-size:15px;"><a href="https://dev.to/wallacefreitas/best-practices-for-implementing-design-patterns-in-legacy-code-4ko2" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Best Practices en Legacy Code</a></li>
+    <li style="font-size:15px;"><a href="http://designcodetips.blogspot.com/2014/02/patrones-estructurales-adapter.html" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Patrones Estructurales: Adapter</a></li>
+    <li style="font-size:15px;"><a href="https://www.studocu.com/es/document/universidad-rey-juan-carlos/metodologia-de-la-programacion/patronesestructurales/93275931" target="_blank" style="font-size:15px;" rel="noreferrer noopener">Patrones Estructurales — Studocu</a></li>
+</ul>

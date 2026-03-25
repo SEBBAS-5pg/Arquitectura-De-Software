@@ -1,0 +1,14 @@
+C4Container
+    title Diagrama de Contenedores (Nivel 2) - Sistema ERP
+
+    Person(customer, "Usuario Administrativo", "Empleado que gestiona el inventario.")
+    
+    System_Boundary(erp, "Sistema ERP") {
+        Container(spa, "Frontend (Angular)", "TypeScript/Angular", "Provee la interfaz de usuario en el navegador.")
+        Container(api, "Backend (Spring Boot)", "Java 17", "Maneja la lógica de negocio y autenticación.")
+        ContainerDb(db, "Base de Datos", "PostgreSQL", "Almacena datos de productos y usuarios.")
+    }
+
+    Rel(customer, spa, "Usa", "HTTPS")
+    Rel(spa, api, "Consume servicios", "JSON/REST")
+    Rel(api, db, "Lee/Escribe", "JDBC")

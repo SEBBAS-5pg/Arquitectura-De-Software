@@ -1,0 +1,12 @@
+sequenceDiagram
+    participant U as User (Angular SPA)
+    participant C as AuthController (Spring Boot)
+    participant S as AuthService (Java)
+    participant DB as PostgreSQL (Docker)
+
+    U->>C: POST /api/login {user, pass}
+    C->>S: validateCredentials(dto)
+    S->>DB: SELECT * FROM users WHERE email = ?
+    DB-->>S: UserData / Null
+    S-->>C: JWT Token / Exception
+    C-->>U: 200 OK {token} / 401 Unauthorized

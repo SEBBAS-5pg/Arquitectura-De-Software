@@ -17,10 +17,10 @@
 
 Este repositorio contiene ejemplos prácticos para debatir la carga cognitiva en la arquitectura de software.
 
-| Tipo de Diagrama      | Propósito                                | Ejemplo Renderizado           |
-| :-------------------- | :--------------------------------------- | :---------------------------- |
-| **UML (Secuencia)**   | Detalle técnico y flujo de llamadas.     | [Ver UML](./uml-sequence.mmd) |
-| **C4 (Contenedores)** | Estructura de alto nivel y comunicación. | [Ver C4](./c4-containers.mmd) |
+| Tipo de Diagrama      | Propósito                                | Ejemplo Renderizado                  |
+| :-------------------- | :--------------------------------------- | :----------------------------------- |
+| **UML (Secuencia)**   | Detalle técnico y flujo de llamadas.     | [Ver UML](/Corte-2/uml-sequence.mmd) |
+| **C4 (Contenedores)** | Estructura de alto nivel y comunicación. | [Ver C4](/Corte-2/c4-containers.mmd) |
 
 # Foro Corte 1️⃣
 

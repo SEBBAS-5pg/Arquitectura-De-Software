@@ -1,0 +1,14 @@
+C4Component
+    title Nivel 3 - Componente de Ventas (Ejemplo de Agilidad)
+
+    Container(api, "API de Ventas", "Spring Boot", "Maneja transacciones")
+
+    Container_Boundary(api_boundary, "Componentes Internos") {
+        Component(auth, "Componente de Autorización", "Spring Security", "Valida JWT y Roles")
+        Component(calc, "Motor de Impuestos", "Java Logic", "Calcula IVA según región")
+        Component(repo, "Persistencia de Ventas", "Spring Data JPA", "Gestiona queries a PostgreSQL")
+    }
+
+    Rel(api, auth, "Verifica", "Llamada interna")
+    Rel(auth, calc, "Envía datos para cálculo")
+    Rel(calc, repo, "Guarda resultado")

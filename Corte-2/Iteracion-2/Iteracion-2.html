@@ -1,0 +1,60 @@
+<div
+    style="border: 1px solid #e0e0e0; padding: 20px; background-color: #ffffff; border-radius: 10px; font-family: 'Segoe UI', Arial, sans-serif; color: #2c3e50;">
+
+    <div
+        style="display: flex; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #e67e22; padding-bottom: 10px;">
+        <span style="font-size: 2em; margin-right: 15px;">🏗️</span>
+        <h3 style="margin: 0; color: #d35400;">Iteración 2: El Nivel 2 (Contenedores) y la Salud del Sistema</h3>
+    </div>
+
+    <p>Continuando con el debate, hoy analizamos el <strong>Diagrama de Contenedores</strong>. Si el Nivel 1 nos decía
+        "qué" hace el sistema, el Nivel 2 nos revela "cómo" se distribuye la responsabilidad técnica.</p>
+
+    <h4 style="color: #2980b9;">1. Identificación de Fallos de Comunicación</h4>
+    <p>Este nivel es crítico para detectar problemas que en UML quedarían ocultos tras una línea de asociación. Al
+        definir contenedores, podemos identificar:</p>
+    <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 10px; padding: 10px; background: #fff5f5; border-left: 4px solid #c0392b;">
+            <strong>⚠️ Acoplamiento Excesivo:</strong> Si un contenedor (ej. Microservicio A) tiene demasiadas flechas
+            hacia otros contenedores, estamos ante un posible "Monolito Distribuido".
+        </li>
+        <li style="margin-bottom: 10px; padding: 10px; background: #fdfae6; border-left: 4px solid #f1c40f;">
+            <strong>⚠️ Incompatibilidad de Protocolos:</strong> Permite visualizar si el <strong>Frontend en
+                Angular</strong> intenta hablar con un <strong>Backend en Spring Boot</strong> usando un protocolo no
+            soportado o si falta un API Gateway intermedio.
+        </li>
+    </ul>
+
+    <div
+        style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; border: 1px dashed #bdc3c7;">
+        <p style="margin: 0; font-style: italic;">
+            "Los componentes son unidades encapsuladas con interfaces bien definidas... fundamentales para razonar sobre
+            responsabilidades."
+            <br><span style="font-size: 0.8em; font-weight: bold;">— Clements et al. (2003), Documenting Software
+                Architectures.</span>
+        </p>
+    </div>
+
+    <h4 style="color: #2980b9;">2. El "Single Point of Failure" (SPOF)</h4>
+    <p>En el diagrama que adjunto (basado en el modelo de Simon Brown), podemos ver un <strong>API Application</strong>
+        que centraliza todas las llamadas. Si este contenedor falla, tanto la App Móvil como la Web quedan inoperativas.
+        El C4 Nivel 2 nos obliga a ver esta realidad física, a diferencia de los diagramas lógicos que solo muestran
+        flujos de datos ideales.</p>
+    <div style="text-align: center; margin: 20px 0;">
+        <img src="https://virtual.corhuila.edu.co/uh/draftfile.php?file=%2F4507%2Fuser%2Fdraft%2F604059956%2Fc4-container.png"
+            alt="C4 Model Baking Diagram"
+            style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <p style="font-size: 0.8em; color: #7f8c8d; margin-top: 5px;">Figura 1: Diagrama de Contenedores para un Sistema
+            de Banca por Internet (Nivel 2).</p>
+    </div>
+
+    <div style="font-size: 0.85em; color: #7f8c8d; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;">
+        <strong>Fuentes Académicas:</strong><br>
+        • Brown, S. (2015). C4 model for visualising software architecture.<br>
+        • Clements, P. (2003). Documenting software architectures: Views and beyond.
+    </div>
+
+    <p style="margin-top: 20px; font-weight: bold; color: #27ae60;">Pregunta para el grupo: ¿Han tenido casos donde un
+        diagrama de contenedores les ayudó a notar que su base de datos estaba sobre-expuesta o que un servicio era un
+        cuello de botella antes de escribir la primera línea de código?</p>
+</div>

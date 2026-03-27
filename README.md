@@ -13,7 +13,9 @@
 
 # Foro Corte 2️⃣
 
-# Iteración Comparativa: UML vs Modelo C4 📊
+Este corte se enfoca en el **Modelo C4** y su aplicación para mejorar la comunicación y documentación de arquitecturas de software modernas.
+
+## Iteración 1: Comparativa UML vs Modelo C4 📊
 
 Este repositorio contiene ejemplos prácticos para debatir la carga cognitiva en la arquitectura de software.
 
@@ -21,6 +23,41 @@ Este repositorio contiene ejemplos prácticos para debatir la carga cognitiva en
 | :-------------------- | :--------------------------------------- | :----------------------------------------------- |
 | **UML (Secuencia)**   | Detalle técnico y flujo de llamadas.     | [Ver UML](/Corte-2/Iteracion-1/uml-sequence.mmd) |
 | **C4 (Contenedores)** | Estructura de alto nivel y comunicación. | [Ver C4](/Corte-2/Iteracion-1/c4-containers.mmd) |
+
+## Iteración 2: El Nivel 2 (Contenedores) y la Salud del Sistema 🏗️
+
+Análisis del **Diagrama de Contenedores** (Nivel 2) para identificar fallos antes de la implementación:
+- **Acoplamiento Excesivo:** Identificación de posibles "monolitos distribuidos".
+- **Single Point of Failure (SPOF):** Visualización física de cuellos de botella y puntos críticos de fallo.
+
+[Ver Contenido Detallado](/Corte-2/Iteracion-2/Iteracion-2.html)
+
+## Iteración 3: El Nivel de Componentes y la Agilidad ⚡
+
+Debate sobre el **Nivel 3 (Componentes)** y el riesgo de la "erosión arquitectónica":
+- **Cuándo usar Nivel 3:** En sistemas complejos con lógica distribuida o equipos grandes.
+- **Componente vs Clase:** Evitar el mapeo 1:1 de clases para no generar burocracia técnica.
+
+| Recurso               | Descripción                                                                 | Link                                                       |
+| :-------------------- | :-------------------------------------------------------------------------- | :--------------------------------------------------------- |
+| **C4 Components**     | Ejemplo de nivel 3 para evitar granularidad excesiva.                       | [Ver C4](/Corte-2/Iteracion-3/c4-components-error.mmd)     |
+
+## Iteración 4: Ontología y Estándares Internacionales (ISO 42010) 📐
+
+Relación entre el Modelo C4 y el estándar **ISO/IEC/IEEE 42010:2011**:
+- **Vistas y Puntos de Vista:** Cómo los niveles de zoom de C4 satisfacen las preocupaciones de diferentes stakeholders.
+- **Trazabilidad:** El proceso de "Zooming" asegura la coherencia y gobernanza arquitectónica.
+
+[Ver Análisis ISO 42010](/Corte-2/Iteracion-4/Iteracion-4.html)
+
+## Iteración 5: Conclusión Maestra - La Arquitectura Viva 🚀
+
+Transición hacia la **Arquitectura como Código (Diagrams as Code - DaC)**:
+- **Integración CI/CD:** Uso de Mermaid.js y pipelines para mantener diagramas actualizados automáticamente.
+- **Impacto DevOps:** Eliminación de la obsolescencia documental, permitiendo que el diseño y el código evolucionen juntos.
+
+[Ver Conclusión Final](/Corte-2/Iteracion-5/Iteracion-5.html)
+
 
 # Foro Corte 1️⃣
 
@@ -59,4 +96,6 @@ Pregunta detonante: "De los patrones estudiados, ¿Strategy supera a otros como 
 Discutir patrones estructurales para agregar funcionalidades sin alterar código base.
 Pregunta detonante: "¿Consideras Decorator más crítico que Singleton para escalabilidad en sistemas grandes? ¿Cómo previene el spaghetti code en tu opinión, basado en un caso práctico?"
 
-Estos temas promueven interacción al pedir opiniones personales y ejemplos. ¿Quieres ajustar algún tema o agregar más detalles como reglas de foro?
+---
+*Actualizado para reflejar el progreso del Segundo Corte.*
+

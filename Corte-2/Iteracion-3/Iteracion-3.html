@@ -1,82 +1,82 @@
-<div
-    style="border: 1px solid #d1d8e0; padding: 20px; background-color: #ffffff; border-radius: 10px; font-family: 'Segoe UI', Tahoma, sans-serif; color: #2d3436;">
+<div id="moodle-container-iteracion-3" style="max-width: 900px; margin: 0 auto; line-height: 1.6;">
+    <div
+        style="border: 1px solid #8e44ad; border-radius: 10px; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; overflow: hidden; background-color: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+
+        <div style="background: linear-gradient(90deg, #8e44ad, #9b59b6); padding: 20px;">
+            <h3
+                style="margin: 0; font-size: 1.4em; color: #ffffff !important; border: none; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+                Iteración 3: El Nivel de Componentes y la Agilidad
+            </h3>
+        </div>
+
+        <div style="padding: 20px;">
+            <p>Para mi tercera intervención, quiero poner sobre la mesa el nivel más polémico del Modelo C4: <strong>El
+                    Nivel 3 (Componentes)</strong>. Según Simon Brown, este es el nivel donde más errores de diseño se
+                cometen.</p>
+
+            <h4 style="color: #8e44ad; border-bottom: 1px solid #f1f1f1; padding-bottom: 5px;">1. La Trampa de la
+                "Arquitectura de Erosión"</h4>
+            <p>El mayor peligro en este nivel es la <strong>erosión arquitectónica</strong>: cuando el diagrama dice una
+                cosa y el código hace otra. En equipos grandes, los componentes a menudo terminan acoplados de formas no
+                previstas.</p>
+
+            <div style="margin: 20px 0; border: 1px solid #e0e0e0; border-radius: 8px; overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; background-color: #f9f9f9; min-width: 400px;">
+                    <thead style="background-color: #f1f2f6;">
+                        <tr>
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #8e44ad; color: #333;">
+                                ¿Cuándo usar el Nivel 3?</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #8e44ad; color: #333;">
+                                ¿Cuándo omitirlo?</th>
+                        </tr>
+                    </thead>
+                    <tbody style="color: #444;">
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #eee;">Sistemas complejos con lógica
+                                distribuida.</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #eee;">Sistemas simples o CRUDs básicos.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #eee;">Equipos grandes que requieren
+                                Onboarding.</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #eee;">Equipos de < 5 devs.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div
+                style="border-left: 5px solid #8e44ad; padding: 15px; background: #f4f1f7; margin: 20px 0; border-radius: 0 8px 8px 0;">
+                <p style="margin: 0; font-style: italic; color: #4b1a61;">
+                    "Solo crea el diagrama si el esfuerzo de mantenimiento vale la comunicación de diseño... hay que
+                    equilibrar el modelo con la agilidad."
+                    <br><span style="font-size: 0.85em; font-weight: bold; color: #8e44ad;">— Brown, S. (2015).</span>
+                </p>
+            </div>
+
+            <h4 style="color: #8e44ad;">2. Reflexión sobre Componente vs. Clase</h4>
+            <p>Es vital no confundir un componente con una clase. Un <strong>Componente</strong> es una agrupación de
+                código que entrega una funcionalidad completa.</p>
+
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+            <p
+                style="color: #d35400; font-weight: bold; text-align: center; background: #fff5eb; padding: 10px; border-radius: 5px;">
+                ¿Creen ustedes que en un entorno de Sprints de 2 semanas, el Nivel 3 ayuda a prevenir errores o es un
+                obstáculo?
+            </p>
+        </div>
+    </div>
 
     <div
-        style="background: linear-gradient(90deg, #8e44ad, #9b59b6); color: white; padding: 12px 20px; border-radius: 8px 8px 0 0; margin: -20px -20px 20px -20px;">
-        <h3 style="margin: 0; font-size: 1.3em;">Iteración 3: El Nivel de Componentes y la Agilidad</h3>
+        style="margin-top: 20px; padding: 20px; border: 2px dashed #8e44ad; border-radius: 10px; background-color: #fcfaff; text-align: center;">
+        <p style="margin-bottom: 15px; font-weight: bold; color: #4b1a61; font-size: 1.1em;">🛠️ Evidencia de Diseño vs.
+            Realidad</p>
+        <a href="https://github.com/SEBBAS-5pg/Arquitectura-De-Software/blob/Foro/Corte-2/Iteracion-3/c4-components-error.mmd"
+            target="_blank"
+            style="background-color: #24292e; color: #ffffff !important; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
+            📂 Ver ejemplo en GitHub
+        </a>
     </div>
-
-    <p>Para mi tercera intervención, quiero poner sobre la mesa el nivel más polémico del Modelo C4: <strong>El Nivel 3
-            (Componentes)</strong>. Según Simon Brown, este es el nivel donde más errores de diseño se cometen.</p>
-
-    <h4 style="color: #8e44ad;">1. La Trampa de la "Arquitectura de Erosión"</h4>
-    <p>El mayor peligro en este nivel es la <strong>erosión arquitectónica</strong>: cuando el diagrama dice una cosa y
-        el código hace otra. En equipos grandes, los componentes (como un <em>"Gestor de Pagos"</em> en Spring Boot) a
-        menudo terminan acoplados de formas no previstas, convirtiendo el diagrama en una pieza de "ficción técnica".
-    </p>
-
-    <div style="margin: 20px 0; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-        <table style="width: 100%; border-collapse: collapse; background-color: #f9f9f9;">
-            <thead style="background-color: #f1f2f6;">
-                <tr>
-                    <th style="padding: 10px; text-align: left; border-bottom: 2px solid #8e44ad;">¿Cuándo usar el Nivel
-                        3?</th>
-                    <th style="padding: 10px; text-align: left; border-bottom: 2px solid #8e44ad;">¿Cuándo omitirlo?
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="padding: 10px; border-bottom: 1px solid #eee;">Sistemas complejos con lógica distribuida.
-                    </td>
-                    <td style="padding: 10px; border-bottom: 1px solid #eee;">Sistemas simples o CRUDs básicos.</td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px; border-bottom: 1px solid #eee;">Equipos grandes que requieren Onboarding.
-                    </td>
-                    <td style="padding: 10px; border-bottom: 1px solid #eee;">Equipos de &lt; 5 devs con comunicación
-                        diaria.</td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px;">Para identificar cuellos de botella lógicos.</td>
-                    <td style="padding: 10px;">Si el código es la "única fuente de verdad".</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div
-        style="border-left: 5px solid #8e44ad; padding-left: 15px; background: #f4f1f7; padding: 10px; margin: 20px 0;">
-        <p style="margin: 0; font-style: italic;">
-            "Solo crea el diagrama si el esfuerzo de mantenimiento vale la comunicación de diseño... hay que equilibrar
-            el modelo con la agilidad."
-            <br><span style="font-size: 0.85em; font-weight: bold;">— Brown, S. (2015). Software Architecture for
-                Developers.</span>
-        </p>
-    </div>
-
-    <h4 style="color: #8e44ad;">2. Reflexión sobre Componente vs. Clase</h4>
-    <p>Es vital no confundir un componente con una clase de Java o Angular. Un <strong>Componente</strong> es una
-        agrupación de código (un conjunto de clases bajo una interfaz) que entrega una funcionalidad. Si intentamos
-        mapear cada clase en el Nivel 3, generamos burocracia técnica insostenible.</p>
-
-    <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-
-    <p style="color: #d35400; font-weight: bold;">¿creen ustedes que en un entorno de Sprints de 2 semanas, el Nivel 3
-        ayuda a prevenir errores o se convierte en un obstáculo que nadie actualiza?</p>
-</div>
-<div
-    style="margin-top: 25px; padding: 15px; border: 1px dashed #8e44ad; border-radius: 8px; background-color: #fcfaff; text-align: center;">
-    <p style="margin-bottom: 10px; font-weight: bold; color: #4b1a61;">
-        🛠️ Evidencia de Diseño vs. Realidad
-    </p>
-    <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">
-        He actualizado el repositorio con un ejemplo de <strong>Nivel 3 (Componentes)</strong> para demostrando cómo
-        evitar la granularidad excesiva.
-    </p>
-    <a href="https://github.com/SEBBAS-5pg/Arquitectura-De-Software/blob/Foro/Corte-2/Iteracion-3/c4-components-error.mmd"
-        target="_blank"
-        style="background-color: #24292e; color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; transition: background 0.3s ease;">
-        📂 Ver ejemplo en GitHub
-    </a>
 </div>

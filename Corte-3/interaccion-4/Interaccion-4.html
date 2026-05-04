@@ -1,0 +1,84 @@
+<div
+    style="font-family: 'Segoe UI', Roboto, sans-serif; max-width: 850px; margin: 20px auto; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);">
+
+    <!-- Header: Arquitectura de Sistemas -->
+    <div
+        style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); padding: 35px; color: #f8fafc; text-align: left; border-bottom: 4px solid #f59e0b;">
+        <h2 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.5px;">Desacoplamiento de Monolitos:
+            SQS + DynamoDB</h2>
+        <p style="margin: 8px 0 0 0; opacity: 0.8; font-size: 15px;">Lecciones aprendidas en resiliencia y escalabilidad
+            serverless</p>
+    </div>
+
+    <div style="padding: 30px;">
+        <!-- Introducción -->
+        <p style="font-size: 15px; color: #475569; line-height: 1.7; margin-bottom: 25px;">
+            Pasar de un monolito a una arquitectura basada en eventos (Event-Driven) utilizando <strong>Amazon
+                SQS</strong> como buffer y <strong>DynamoDB</strong> para persistencia transaccional introduce retos de
+            consistencia eventual y gestión de estado que no existen en sistemas tradicionales.
+        </p>
+
+        <!-- Tabla de Retos vs Mitigación -->
+        <h3 style="font-size: 18px; color: #0f172a; margin-bottom: 15px; display: flex; align-items: center;">
+            <span style="margin-right: 10px;">🛠️</span> Matriz de Desafíos Prácticos
+        </h3>
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 14px;">
+                <thead>
+                    <tr style="background-color: #f8fafc; text-align: left;">
+                        <th
+                            style="padding: 15px; border-bottom: 2px solid #e2e8f0; color: #64748b; text-transform: uppercase; font-size: 12px;">
+                            Reto Identificado</th>
+                        <th
+                            style="padding: 15px; border-bottom: 2px solid #e2e8f0; color: #64748b; text-transform: uppercase; font-size: 12px;">
+                            Impacto</th>
+                        <th
+                            style="padding: 15px; border-bottom: 2px solid #e2e8f0; color: #64748b; text-transform: uppercase; font-size: 12px;">
+                            Mitigación Técnica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 15px; font-weight: 600;">Sincronización</td>
+                        <td style="padding: 15px;">Duplicados (~15%) y Race Conditions.</td>
+                        <td style="padding: 15px; color: #0369a1;">DynamoDB Streams + TTL.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f1f5f9; background-color: #fcfcfc;">
+                        <td style="padding: 15px; font-weight: 600;">Costos de Picos</td>
+                        <td style="padding: 15px;">$50/mes (Fijo) → $300/mes (Pico).</td>
+                        <td style="padding: 15px; color: #0369a1;">Reserved Concurrency + FIFO.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px; font-weight: 600;">Autenticación</td>
+                        <td style="padding: 15px;">20% de eventos en Dead-Letter Queues.</td>
+                        <td style="padding: 15px; color: #0369a1;">Cognito + Lambda Cache.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Bloque Informativo: El factor Atende Simples -->
+        <div
+            style="background-color: #fff7ed; border: 1px solid #ffedd5; padding: 20px; border-radius: 12px; margin-bottom: 30px;">
+            <strong style="color: #9a3412; font-size: 14px; display: block; margin-bottom: 8px;">💡 Caso de Éxito:
+                Atende Simples</strong>
+            <p style="margin: 0; font-size: 14px; color: #7c2d12; line-height: 1.6;">
+                Tras procesar <strong>10 millones de transacciones</strong>, la migración logró reducir la latencia en
+                un 60%. La clave fue el uso de <em>AWS Compute Optimizer</em> para ajustar la memoria de las Lambdas,
+                evitando el sobrecosto por sobre-aprovisionamiento.
+            </p>
+        </div>
+
+        <!-- Bibliografía -->
+        <div style="padding-top: 20px; border-top: 1px solid #e2e8f0;">
+            <h4
+                style="font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">
+                📚 Bibliografía</h4>
+            <div style="font-size: 12px; color: #64748b;">
+                • <strong>AWS Architecture Blog:</strong> Durable best practices for Lambda and SQS.<br>
+                • <strong>Dev.to:</strong> Gestión de reintentos y Dead-Letter Queues en serverless.<br>
+                • <strong>DondeAprendoAWS:</strong> Estrategias de escalado y control de costos en eventos.
+            </div>
+        </div>
+    </div>
+</div>

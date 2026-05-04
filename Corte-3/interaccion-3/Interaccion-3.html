@@ -1,0 +1,96 @@
+<div
+    style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 850px; margin: 20px auto; color: #0f172a; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+
+    <!-- Header: Rendimiento -->
+    <div
+        style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); padding: 35px; color: white; text-align: center;">
+        <h2 style="margin: 0; font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Pilar
+            de Eficiencia de Rendimiento</h2>
+        <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 15px;">Estrategias de Mitigación de Cold Starts en AWS
+            Lambda</p>
+    </div>
+
+    <div style="padding: 30px;">
+        <!-- Resumen Ejecutivo -->
+        <p
+            style="font-size: 15px; color: #475569; line-height: 1.7; margin-bottom: 25px; border-left: 5px solid #0ea5e9; padding-left: 15px;">
+            La optimización del <strong>Cold Start</strong> es el desafío técnico principal al refactorizar monolitos
+            hacia arquitecturas serverless. La correcta gestión de memoria y entornos de ejecución puede reducir la
+            latencia percibida de segundos a milisegundos.
+        </p>
+
+        <!-- Tabla de Rendimiento -->
+        <h3 style="font-size: 17px; color: #0c4a6e; margin-bottom: 15px;">📊 Matriz de Optimización</h3>
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 14px;">
+                <thead>
+                    <tr style="background-color: #f0f9ff; color: #0369a1;">
+                        <th style="padding: 15px; text-align: left; border-bottom: 2px solid #bae6fd;">Estrategia</th>
+                        <th style="padding: 15px; text-align: center; border-bottom: 2px solid #bae6fd;">Latencia Cold
+                            Start</th>
+                        <th style="padding: 15px; text-align: center; border-bottom: 2px solid #bae6fd;">Costo Adicional
+                        </th>
+                        <th style="padding: 15px; text-align: left; border-bottom: 2px solid #bae6fd;">Impacto Atende
+                            Simples</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 15px; font-weight: 600;">Base (128MB)</td>
+                        <td style="padding: 15px; text-align: center; color: #e11d48;">2 - 5s</td>
+                        <td style="padding: 15px; text-align: center;">$25.00</td>
+                        <td style="padding: 15px;">$200/mes (Legacy)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f1f5f9; background-color: #f8fafc;">
+                        <td style="padding: 15px; font-weight: 600;">Memoria 1GB</td>
+                        <td style="padding: 15px; text-align: center; color: #0891b2;">500ms</td>
+                        <td style="padding: 15px; text-align: center;">$18.00</td>
+                        <td style="padding: 15px;">↓70% Latencia</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 15px; font-weight: 600; color: #0369a1;">SnapStart ✨</td>
+                        <td style="padding: 15px; text-align: center; font-weight: 700;">~50ms</td>
+                        <td style="padding: 15px; text-align: center; color: #059669;">$0 Extra</td>
+                        <td style="padding: 15px;">Optimizado para Java</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 15px; font-weight: 600;">Provisioned</td>
+                        <td style="padding: 15px; text-align: center; color: #059669;">&lt;100ms</td>
+                        <td style="padding: 15px; text-align: center;">+$20.00</td>
+                        <td style="padding: 15px; font-weight: 700;">Final: $45/mes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Lógica de Decisión -->
+        <div
+            style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+            <p style="margin: 0 0 10px 0; font-weight: 700; color: #334155; font-size: 14px;">Lógica de Decisión
+                Arquitectónica:</p>
+            <div style="font-family: monospace; font-size: 13px; color: #475569;">
+                ¿Usa Java? → Activar <strong>SnapStart</strong> (Sin costo).<br>
+                ¿Latencia Crítica? → Configurar <strong>Provisioned Concurrency</strong>.<br>
+                ¿Optimización de Costos? → Aplicar <strong>Lambda Power Tuning</strong>.
+            </div>
+        </div>
+
+        <!-- Bibliografía -->
+        <div style="padding-top: 20px; border-top: 1px solid #e2e8f0; margin-bottom: 25px;">
+            <h4
+                style="font-size: 13px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">
+                📚 Bibliografía Consultada</h4>
+            <ul style="font-size: 12px; color: #475569; list-style-type: none; padding: 0;">
+                <li style="margin-bottom: 5px;">• <strong>AWS Documentation:</strong> SnapStart para Java y monitoreo
+                    con GuardDuty/CloudTrail.</li>
+                <li style="margin-bottom: 5px;">• <strong>Gerardo (Cloud Specialist):</strong> Comparativa de latencia
+                    en SnapStart vs alternativas.</li>
+                <li style="margin-bottom: 5px;">• <strong>DondeAprendoAWS:</strong> 7 estrategias prácticas para la
+                    mitigación de inicios en frío.</li>
+                <li style="margin-bottom: 5px;">• <strong>Dev.to:</strong> Guía técnica sobre el ciclo de vida de
+                    inicialización en AWS Lambda.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>

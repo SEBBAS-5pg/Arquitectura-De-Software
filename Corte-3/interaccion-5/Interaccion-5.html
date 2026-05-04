@@ -1,0 +1,122 @@
+<div
+    style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 850px; margin: 20px auto; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 20px; background-color: #ffffff; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);">
+
+    <!-- Encabezado de Cierre -->
+    <div
+        style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); padding: 45px 35px; color: white; text-align: center; border-bottom: 5px solid #f59e0b;">
+        <h2 style="margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase;">
+            Estrategia Maestra: El Horizonte Serverless</h2>
+        <p style="margin: 12px 0 0 0; opacity: 0.9; font-size: 16px; font-weight: 300;">Arquitecturas N-Niveles bajo el
+            Prisma del Well-Architected Framework</p>
+    </div>
+
+    <div style="padding: 40px;">
+
+        <!-- Análisis de Valor y Contexto -->
+        <h3
+            style="color: #1e3a8a; font-size: 20px; border-left: 5px solid #3b82f6; padding-left: 15px; margin-bottom: 15px;">
+            La Evolución del Diseño n-Tier</h3>
+        <p style="font-size: 16px; line-height: 1.8; color: #334155; margin-bottom: 25px;">
+            AWS ha transformado la arquitectura tradicional de tres niveles (Web, Aplicación, Datos) en un modelo de
+            <strong>responsabilidad compartida extrema</strong>. Mientras que en una arquitectura <em>N-Niveles</em>
+            basada en EC2 el arquitecto gestiona el "cómo" (instancias, parches, redes), en el modelo
+            <em>Serverless</em> el foco vira hacia el "qué" (valor de negocio, lógica y datos), permitiendo una agilidad
+            sin precedentes.
+        </p>
+
+        <!-- Tabla de Comparativa Profunda -->
+        <div style="overflow-x: auto; margin-bottom: 35px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px; border: 1px solid #f1f5f9;">
+                <thead>
+                    <tr style="background-color: #f8fafc; text-align: left;">
+                        <th
+                            style="padding: 18px; color: #64748b; text-transform: uppercase; border-bottom: 2px solid #e2e8f0;">
+                            Característica</th>
+                        <th
+                            style="padding: 18px; color: #64748b; text-transform: uppercase; border-bottom: 2px solid #e2e8f0;">
+                            N-Niveles (EC2/ASG)</th>
+                        <th
+                            style="padding: 18px; color: #1e40af; text-transform: uppercase; border-bottom: 2px solid #e2e8f0;">
+                            Serverless (Lambda/Dynamo)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 18px; font-weight: 700;">Gestión Operativa</td>
+                        <td style="padding: 18px;">Control total de SO, parches y endurecimiento de red.</td>
+                        <td style="padding: 18px; color: #059669; font-weight: 600;">Gestión delegada; enfoque en el
+                            código y configuración.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f1f5f9; background-color: #fcfcfc;">
+                        <td style="padding: 18px; font-weight: 700;">Escalabilidad</td>
+                        <td style="padding: 18px;">Reactiva mediante políticas de Auto Scaling (ASG).</td>
+                        <td style="padding: 18px; color: #059669; font-weight: 600;">Nativa, transparente y granular por
+                            solicitud.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 18px; font-weight: 700;">Optimización de Costos</td>
+                        <td style="padding: 18px;">Pago por capacidad aprovisionada (tiempo de encendido).</td>
+                        <td style="padding: 18px; color: #059669; font-weight: 600;">Pago por ejecución real y consumo
+                            de datos.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 18px; font-weight: 700;">Seguridad</td>
+                        <td style="padding: 18px;">Perímetros de red (VPC), WAF y Security Groups.</td>
+                        <td style="padding: 18px; color: #059669; font-weight: 600;">IAM granular por función y defensa
+                            en profundidad.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Los 6 Pilares en la Práctica -->
+        <div
+            style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; margin-bottom: 30px;">
+            <h4 style="margin: 0 0 15px 0; color: #1e3a8a; font-size: 17px;">Integración con el Well-Architected
+                Framework</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div style="font-size: 13px; color: #475569;">
+                    <strong>• Excelencia Operativa:</strong> Automatización total de despliegues (CI/CD) y eliminación
+                    de tareas manuales de servidor.
+                </div>
+                <div style="font-size: 13px; color: #475569;">
+                    <strong>• Seguridad:</strong> Implementación de identidades fuertes y trazabilidad total con
+                    CloudTrail y GuardDuty.
+                </div>
+                <div style="font-size: 13px; color: #475569;">
+                    <strong>• Fiabilidad:</strong> Recuperación automática de fallos y diseño distribuido multi-región.
+                </div>
+                <div style="font-size: 13px; color: #475569;">
+                    <strong>• Rendimiento:</strong> Uso de servicios que escalan globalmente en milisegundos.
+                </div>
+            </div>
+        </div>
+
+        <!-- Recomendación del Arquitecto -->
+        <div
+            style="background-color: #fff7ed; border: 1px solid #ffedd5; padding: 25px; border-radius: 12px; margin-bottom: 30px; border-left: 6px solid #f59e0b;">
+            <h4 style="margin: 0 0 10px 0; color: #9a3412; font-size: 16px;">🚀 Veredicto y Recomendación</h4>
+            <p style="margin: 0; color: #7c2d12; font-size: 14px; line-height: 1.7;">
+                Para los arquitectos modernos, la herramienta <strong>AWS Well-Architected Tool</strong> no es opcional:
+                es la brújula para auditorías periódicas. La migración hacia modelos serverless debe priorizar el
+                <strong>desacoplamiento total</strong> de componentes (vía SQS/EventBridge) para maximizar la
+                resiliencia. En sistemas de misión crítica, la estrategia de <em>"defensa en profundidad"</em> debe
+                mantenerse inamovible, independientemente de si gestionamos servidores o funciones individuales.
+            </p>
+        </div>
+
+        <!-- Bibliografía de Autoridad -->
+        <div style="padding-top: 25px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8;">
+            <h4 style="text-transform: uppercase; letter-spacing: 1px; color: #64748b; margin-bottom: 10px;">📚
+                Bibliografía y Documentación</h4>
+            <ul style="list-style-type: none; padding: 0;">
+                <li style="margin-bottom: 5px;">• <strong>AWS Docs:</strong> Well-Architected Framework - El estándar de
+                    oro para diseño en la nube.</li>
+                <li style="margin-bottom: 5px;">• <strong>Enterprise ArcGIS:</strong> Patrones de arquitectura DMZ y
+                    alta disponibilidad en VPC.</li>
+                <li style="margin-bottom: 5px;">• <strong>OpenWebinars:</strong> Análisis comparativo: Serverless vs
+                    Contenedores vs EC2.</li>
+            </ul>
+        </div>
+    </div>
+</div>
